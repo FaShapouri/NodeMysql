@@ -103,25 +103,25 @@ router.route('/users')
   //
 
   // create a user
-  // .post(function (req, res) {
-  //   User.forge({
-  //     username: req.body.username,
-  //     password: req.body.password,
-  //     customerID: req.body.customerID,
-  //     phone: req.body.phone,
-  //     address: req.body.address,
-  //     realName: req.body.realName,
-  //     realFamily: req.body.realFamily,
-  //     legalName: req.body.legalName,
-  //   })
-  //   .save()
-  //   .then(function (user) {
-  //     res.json({error: false, data: user.toJSON()});
-  //   })
-  //   .catch(function (err) {
-  //     res.status(500).json({error: true, data: {message: err.message}});
-  //   });
-  // });
+  .post(function (req, res) {
+    User.forge({
+      username: req.body.username,
+      password: req.body.password,
+      customerID: req.body.customerID,
+      phone: req.body.phone,
+      address: req.body.address,
+      realName: req.body.realName,
+      realFamily: req.body.realFamily,
+      legalName: req.body.legalName,
+    })
+    .save()
+    .then(function (user) {
+      res.json({error: false, data: user.toJSON()});
+    })
+    .catch(function (err) {
+      res.status(500).json({error: true, data: {message: err.message}});
+    });
+  });
 
 router.route('/users/:id')
   // fetch user
@@ -272,7 +272,7 @@ router.route('/users/:id')
       var password=req.body.password;
       console.log("User name after = "+username+", password is "+password);
 
-      User.forge({username: req.params.username, password: req.body.password})
+      User.forge({username: req.body.username, password: req.body.password})
       .fetch({require: true})
       .then(function (user) {
         if (!user) {
